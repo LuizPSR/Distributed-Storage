@@ -7,30 +7,25 @@ import keyvalue_pb2_grpc
 import central_pb2
 import central_pb2_grpc
 
-def insert_key_value(stub, key, value):
-    request = keyvalue_pb2.KeyValueRequest(key=key, value=value)
-    response = stub.Insert(request)
-    print(response.result)
-
-def consult_value(stub, key):
-    request = keyvalue_pb2.KeyRequest(key=key)
+def map_value(stub, key):
+    request = keyvalue_pb2.HostRequest(key=key)
     response = stub.Consult(request)
-    print(response.value)
 
-def activate_service(stub, address):
-    with grpc.insecure_channel(address) as central_channel:
-        central_stub = central_pb2_grpc.CentralStorageServiceStub(channel)
-        request = centralstorage_pb2.RegisterRequest(host=xxx, )
+    host = response.host 
+    with grpc.insecure_channel(host) as channel:
+        host_stub = keyvalue_pb2_grpc.KeyValueServiceStub(channel)
+        request = keyvalue_pb2.KeyRequest(key=key)
+        response = host_stub.Consult(request)
 
-    request = keyvalue_pb2.ActvationRequest
-    print("Activation not yet implemented")
+        value = response.value
+        print(host, ':', value)
 
 def terminate_server(stub):
-    request = keyvalue_pb2.EmptyRequest()
+    request = central_pb2.EmptyRequest()
     response = stub.Terminate(request)
     
     if response.result != 0:
-        print("fail to terminate server")
+        print("fail to terminate central server")
     exit()
 
 def run(address):
@@ -39,18 +34,9 @@ def run(address):
 
         for line in sys.stdin:
             tokens = line.strip().split(',')
-            if tokens[0] == 'I' and len(tokens) == 3:
-                key = int(tokens[1])
-                value = tokens[2]
-                insert_key_value(stub, key, value)
-
-            elif tokens[0] == 'C' and len(tokens) == 2:
+            if tokens[0] == 'C' and len(tokens) == 2:
                 key = int(tokens[1])
                 consult_value(stub, key)
-
-            elif tokens[0] == 'A' and len(tokens) == 2:
-                service = tokens[1]
-                actvate_service(stub, service)
 
             elif tokens[0] == 'T':
                 terminate_server(stub)
