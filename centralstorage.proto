@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package central;
+
+service KeyValueService {
+  rpc Register (RegisterRequest) returns (ConfirmationResponse);
+  rpc Map (KeyRequest) returns (HostResponse);
+  rpc Terminate (EmptyRequest) returns (ConfirmationResponse);  
+}
+
+message RegisterRequest {
+  int32 key = 1;
+  string host = 2;
+}
+
+message ConfirmationResponse {
+  int32 result = 1;
+}
+
+message KeyRequest {
+  int32 key = 1;
+}
+
+message HostResponse {
+  string host = 1;
+}
+
+message ServiceRequest {
+  string service = 1;
+}
+
+message EmptyRequest {}
