@@ -3,27 +3,31 @@ syntax = "proto3";
 package keyvalue;
 
 service KeyValueService {
-  rpc Insert (KeyValueRequest) returns (KeyValueResponse);
+  rpc Insert (KeyValueRequest) returns (ConfirmationResponse);
   rpc Consult (KeyRequest) returns (ValueResponse);
   rpc Activate (ServiceRequest) returns (EmptyResponse);
-  rpc Terminate (EmptyRequest) returns (EmptyResponse);  
+  rpc Terminate (EmptyRequest) returns (ConfirmationResponse);  
 }
 
 message KeyValueRequest {
-  int key = 1;
+  int32 key = 1;
   string value = 2;
 }
 
-message KeyValueResponse {
-  int result = 1;
+message ConfirmationResponse {
+  int32 result = 1;
 }
 
 message KeyRequest {
-  int key = 1;
+  int32 key = 1;
 }
 
 message ValueResponse {
   string value = 1;
+}
+
+message ServiceRequest {
+  string service = 1;
 }
 
 message EmptyRequest {}

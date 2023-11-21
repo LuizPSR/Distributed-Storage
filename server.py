@@ -15,10 +15,10 @@ class KeyValueServicer(keyvalue_pb2_grpc.KeyValueServiceServicer):
 
         # check if key already in use
         if key in self.key_value_storage:
-            return keyvalue_pb2.KeyValueResponse(result=-1)
+            return keyvalue_pb2.ConfirmationResponse(result=-1)
         
         self.key_value_storage[key] = value
-        return keyvalue_pb2.KeyValueResponse(result=0)
+        return keyvalue_pb2.ConfirmationResponse(result=0)
 
     def Consult(self, request, context):
         key = request.key
@@ -31,24 +31,23 @@ class KeyValueServicer(keyvalue_pb2_grpc.KeyValueServiceServicer):
         return keyvalue_pb2.EmptyResponse()
     
     def Terminate(self, request, context):
-        self.server.stop(0)
-        return keyvalue_pb2.EmptyResponse()
+        server.stop(0)
+        return keyvalue_pb2.ConfirmationResponse(result=0)
 
 def serve(port):
-
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     keyvalue_pb2_grpc.add_KeyValueServiceServicer_to_server(KeyValueServicer(), server)
-    
-    server.add_insecure_port('[::]:' + str(port))
+    server.add_insecure_port("localhost:" + port)
     server.start()
     server.wait_for_termination()
 
+# make the server a global
+server = grpc.server(futures.ThreadPoolExecutor(max_workers=10)) 
 if __name__ == '__main__':
     
-    if sys.argc > 2:
+    if len(sys.argv) > 2:
         print("Central server not yet implemented")
         exit()
 
     else:
-        port = int(sys.argv[1])
+        port = sys.argv[1]
         serve(port)
