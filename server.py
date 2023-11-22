@@ -1,9 +1,17 @@
 import grpc
 import sys
+import socket
 from concurrent import futures
 
 import keyvalue_pb2
 import keyvalue_pb2_grpc
+
+import central_pb2
+import central_pb2_grpc
+
+#========================================================================================#
+#=================================== Logic ==============================================#
+#========================================================================================#
 
 class KeyValueServicer(keyvalue_pb2_grpc.KeyValueServiceServicer):
     def __init__(self):
@@ -26,9 +34,20 @@ class KeyValueServicer(keyvalue_pb2_grpc.KeyValueServiceServicer):
         return keyvalue_pb2.ValueResponse(value=value)
     
     def Activate(self, request, context):
-        service = request.address
-        # TODO 
-        return keyvalue_pb2.EmptyResponse()
+        # default return
+        keys = -1
+
+        if CENTRAL_STORAGE_SERVER_FLAG:
+            host = request.host
+            with grpc.insecure_channel(host) as channel:
+                central_stub = centralstorage_pb2_grpc.CentralStorageServiceStub(channel)
+                
+                self_host = socket.getfqdn()
+                request = centralstorage_pb2.RegisterRequest(host=self_host, keys=key_value_storage.keys)
+                response = central_stub.Consult(request)
+                keys = response.result
+
+        return keyvalue_pb2.ConfirmationResponse(result=keys)
     
     def Terminate(self, request, context):
         server.stop(0)
@@ -40,13 +59,19 @@ def serve(port):
     server.start()
     server.wait_for_termination()
 
+#========================================================================================#
+#===================================== Main =============================================#
+#========================================================================================#
+
 # make the server a global
 server = grpc.server(futures.ThreadPoolExecutor(max_workers=10)) 
+# implemented Activation as a feature flag
+CENTRAL_STORAGE_SERVER_FLAG = False
+
 if __name__ == '__main__':
     
     if len(sys.argv) > 2:
-        print("Central server not yet implemented")
-        exit()
+        CENTRAL_STORAGE_SERVER_FLAG = True
 
     else:
         port = sys.argv[1]

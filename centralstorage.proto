@@ -2,15 +2,15 @@ syntax = "proto3";
 
 package central;
 
-service KeyValueService {
+service CentralStorageService {
   rpc Register (RegisterRequest) returns (ConfirmationResponse);
   rpc Map (KeyRequest) returns (HostResponse);
   rpc Terminate (EmptyRequest) returns (ConfirmationResponse);  
 }
 
 message RegisterRequest {
-  int32 key = 1;
-  string host = 2;
+  string host = 1;
+  int32 key = 2;
 }
 
 message ConfirmationResponse {
@@ -23,10 +23,6 @@ message KeyRequest {
 
 message HostResponse {
   string host = 1;
-}
-
-message ServiceRequest {
-  string service = 1;
 }
 
 message EmptyRequest {}

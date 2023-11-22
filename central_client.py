@@ -4,24 +4,28 @@ import sys
 import keyvalue_pb2
 import keyvalue_pb2_grpc
 
-import central_pb2
-import central_pb2_grpc
+import centralstorage_pb2
+import centralstorage_pb2_grpc
 
 def map_value(stub, key):
     request = keyvalue_pb2.HostRequest(key=key)
     response = stub.Consult(request)
 
     host = response.host 
-    with grpc.insecure_channel(host) as channel:
-        host_stub = keyvalue_pb2_grpc.KeyValueServiceStub(channel)
-        request = keyvalue_pb2.KeyRequest(key=key)
-        response = host_stub.Consult(request)
+    if host == "":
+        print("unregister key")
 
-        value = response.value
-        print(host, ':', value)
+    else:
+        with grpc.insecure_channel(host) as channel:
+            host_stub = keyvalue_pb2_grpc.KeyValueServiceStub(channel)
+            request = keyvalue_pb2.KeyRequest(key=key)
+            response = host_stub.Consult(request)
+
+            value = response.value
+            print(host, ':', value)
 
 def terminate_server(stub):
-    request = central_pb2.EmptyRequest()
+    request = centralstorage_pb2.EmptyRequest()
     response = stub.Terminate(request)
     
     if response.result != 0:
@@ -30,7 +34,7 @@ def terminate_server(stub):
 
 def run(address):
     with grpc.insecure_channel(address) as channel:
-        stub = keyvalue_pb2_grpc.KeyValueServiceStub(channel)
+        stub = centralstorage_pb2_grpc.CentralStorageServiceStub(channel)
 
         for line in sys.stdin:
             tokens = line.strip().split(',')

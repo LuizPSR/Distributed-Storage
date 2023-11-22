@@ -1,6 +1,6 @@
 import grpc
 import sys
-
+address
 import keyvalue_pb2
 import keyvalue_pb2_grpc
 
@@ -17,13 +17,10 @@ def consult_value(stub, key):
     response = stub.Consult(request)
     print(response.value)
 
-def activate_service(stub, address):
-    with grpc.insecure_channel(address) as central_channel:
-        central_stub = central_pb2_grpc.CentralStorageServiceStub(channel)
-        request = centralstorage_pb2.RegisterRequest(host=xxx, )
-
-    request = keyvalue_pb2.ActvationRequest
-    print("Activation not yet implemented")
+def activate_service(stub, host):
+    request = keyvalue_pb2.ServiceRequest(host=host)
+    response = stub.Activate(request)
+    print(response.result)
 
 def terminate_server(stub):
     request = keyvalue_pb2.EmptyRequest()
