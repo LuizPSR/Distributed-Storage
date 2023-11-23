@@ -53,11 +53,8 @@ def run(address):
                 # should ignore bad comamnds instead of printing the correct usage
                 print("invalid operation") 
                 print("================================================") 
-                print("valid operations are:")
-                print("\tI,int,string\t\t=> associate an integer to a string")
-                print("\tC,int\t\t\t=> consult string associated with a int")
-                print("\tA,string\t\t=> activate service")
-                print("\tT\t\t\t=> terminate pair server")
+                print("\tC,int\t\t\t=> find the server that stores the value paired with the key int, and the said value")
+                print("\tT\t\t\t=> terminate central server")
 
 if __name__ == '__main__':
     address = sys.argv[1]
