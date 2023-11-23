@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0ekeyvalue.proto\x12\x08keyvalue\"-\n\x0fKeyValueRequest\x12\x0b\n\x03key\x18\x01 \x01(\x05\x12\r\n\x05value\x18\x02 \x01(\t\"&\n\x14\x43onfirmationResponse\x12\x0e\n\x06result\x18\x01 \x01(\x05\"\x19\n\nKeyRequest\x12\x0b\n\x03key\x18\x01 \x01(\x05\"\x1e\n\rValueResponse\x12\r\n\x05value\x18\x01 \x01(\t\"!\n\x0eServiceRequest\x12\x0f\n\x07service\x18\x01 \x01(\t\"\x0e\n\x0c\x45mptyRequest\"\x0f\n\rEmptyResponse2\x94\x02\n\x0fKeyValueService\x12\x43\n\x06Insert\x12\x19.keyvalue.KeyValueRequest\x1a\x1e.keyvalue.ConfirmationResponse\x12\x38\n\x07\x43onsult\x12\x14.keyvalue.KeyRequest\x1a\x17.keyvalue.ValueResponse\x12=\n\x08\x41\x63tivate\x12\x18.keyvalue.ServiceRequest\x1a\x17.keyvalue.EmptyResponse\x12\x43\n\tTerminate\x12\x16.keyvalue.EmptyRequest\x1a\x1e.keyvalue.ConfirmationResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0ekeyvalue.proto\x12\x08keyvalue\"-\n\x0fKeyValueRequest\x12\x0b\n\x03key\x18\x01 \x01(\x05\x12\r\n\x05value\x18\x02 \x01(\t\"&\n\x14\x43onfirmationResponse\x12\x0e\n\x06result\x18\x01 \x01(\x05\"\x19\n\nKeyRequest\x12\x0b\n\x03key\x18\x01 \x01(\x05\"\x1e\n\rValueResponse\x12\r\n\x05value\x18\x01 \x01(\t\"\x1e\n\x0eServiceRequest\x12\x0c\n\x04host\x18\x01 \x01(\t\"\x0e\n\x0c\x45mptyRequest2\x9b\x02\n\x0fKeyValueService\x12\x43\n\x06Insert\x12\x19.keyvalue.KeyValueRequest\x1a\x1e.keyvalue.ConfirmationResponse\x12\x38\n\x07\x43onsult\x12\x14.keyvalue.KeyRequest\x1a\x17.keyvalue.ValueResponse\x12\x44\n\x08\x41\x63tivate\x12\x18.keyvalue.ServiceRequest\x1a\x1e.keyvalue.ConfirmationResponse\x12\x43\n\tTerminate\x12\x16.keyvalue.EmptyRequest\x1a\x1e.keyvalue.ConfirmationResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -30,11 +30,9 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_VALUERESPONSE']._serialized_start=142
   _globals['_VALUERESPONSE']._serialized_end=172
   _globals['_SERVICEREQUEST']._serialized_start=174
-  _globals['_SERVICEREQUEST']._serialized_end=207
-  _globals['_EMPTYREQUEST']._serialized_start=209
-  _globals['_EMPTYREQUEST']._serialized_end=223
-  _globals['_EMPTYRESPONSE']._serialized_start=225
-  _globals['_EMPTYRESPONSE']._serialized_end=240
-  _globals['_KEYVALUESERVICE']._serialized_start=243
-  _globals['_KEYVALUESERVICE']._serialized_end=519
+  _globals['_SERVICEREQUEST']._serialized_end=204
+  _globals['_EMPTYREQUEST']._serialized_start=206
+  _globals['_EMPTYREQUEST']._serialized_end=220
+  _globals['_KEYVALUESERVICE']._serialized_start=223
+  _globals['_KEYVALUESERVICE']._serialized_end=506
 # @@protoc_insertion_point(module_scope)

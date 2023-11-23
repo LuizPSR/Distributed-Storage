@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14\x63\x65ntralstorage.proto\x12\x07\x63\x65ntral\",\n\x0fRegisterRequest\x12\x0c\n\x04host\x18\x01 \x01(\t\x12\x0b\n\x03key\x18\x02 \x01(\x05\"&\n\x14\x43onfirmationResponse\x12\x0e\n\x06result\x18\x01 \x01(\x05\"\x19\n\nKeyRequest\x12\x0b\n\x03key\x18\x01 \x01(\x05\"\x1c\n\x0cHostResponse\x12\x0c\n\x04host\x18\x01 \x01(\t\"\x0e\n\x0c\x45mptyRequest2\xd2\x01\n\x15\x43\x65ntralStorageService\x12\x43\n\x08Register\x12\x18.central.RegisterRequest\x1a\x1d.central.ConfirmationResponse\x12\x31\n\x03Map\x12\x13.central.KeyRequest\x1a\x15.central.HostResponse\x12\x41\n\tTerminate\x12\x15.central.EmptyRequest\x1a\x1d.central.ConfirmationResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x14\x63\x65ntralstorage.proto\x12\x07\x63\x65ntral\";\n\x0fRegisterRequest\x12\x0c\n\x04host\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\t\x12\x0c\n\x04keys\x18\x03 \x03(\x05\"&\n\x14\x43onfirmationResponse\x12\x0e\n\x06result\x18\x01 \x01(\x05\"\x19\n\nKeyRequest\x12\x0b\n\x03key\x18\x01 \x01(\x05\"*\n\x0cHostResponse\x12\x0c\n\x04host\x18\x01 \x01(\t\x12\x0c\n\x04port\x18\x02 \x01(\t\"\x0e\n\x0c\x45mptyRequest2\xd2\x01\n\x15\x43\x65ntralStorageService\x12\x43\n\x08Register\x12\x18.central.RegisterRequest\x1a\x1d.central.ConfirmationResponse\x12\x31\n\x03Map\x12\x13.central.KeyRequest\x1a\x15.central.HostResponse\x12\x41\n\tTerminate\x12\x15.central.EmptyRequest\x1a\x1d.central.ConfirmationResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -22,15 +22,15 @@ _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'centralstorage_pb2', _globa
 if _descriptor._USE_C_DESCRIPTORS == False:
   DESCRIPTOR._options = None
   _globals['_REGISTERREQUEST']._serialized_start=33
-  _globals['_REGISTERREQUEST']._serialized_end=77
-  _globals['_CONFIRMATIONRESPONSE']._serialized_start=79
-  _globals['_CONFIRMATIONRESPONSE']._serialized_end=117
-  _globals['_KEYREQUEST']._serialized_start=119
-  _globals['_KEYREQUEST']._serialized_end=144
-  _globals['_HOSTRESPONSE']._serialized_start=146
-  _globals['_HOSTRESPONSE']._serialized_end=174
-  _globals['_EMPTYREQUEST']._serialized_start=176
-  _globals['_EMPTYREQUEST']._serialized_end=190
-  _globals['_CENTRALSTORAGESERVICE']._serialized_start=193
-  _globals['_CENTRALSTORAGESERVICE']._serialized_end=403
+  _globals['_REGISTERREQUEST']._serialized_end=92
+  _globals['_CONFIRMATIONRESPONSE']._serialized_start=94
+  _globals['_CONFIRMATIONRESPONSE']._serialized_end=132
+  _globals['_KEYREQUEST']._serialized_start=134
+  _globals['_KEYREQUEST']._serialized_end=159
+  _globals['_HOSTRESPONSE']._serialized_start=161
+  _globals['_HOSTRESPONSE']._serialized_end=203
+  _globals['_EMPTYREQUEST']._serialized_start=205
+  _globals['_EMPTYREQUEST']._serialized_end=219
+  _globals['_CENTRALSTORAGESERVICE']._serialized_start=222
+  _globals['_CENTRALSTORAGESERVICE']._serialized_end=432
 # @@protoc_insertion_point(module_scope)

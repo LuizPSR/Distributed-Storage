@@ -27,7 +27,7 @@ class KeyValueServiceStub(object):
         self.Activate = channel.unary_unary(
                 '/keyvalue.KeyValueService/Activate',
                 request_serializer=keyvalue__pb2.ServiceRequest.SerializeToString,
-                response_deserializer=keyvalue__pb2.EmptyResponse.FromString,
+                response_deserializer=keyvalue__pb2.ConfirmationResponse.FromString,
                 )
         self.Terminate = channel.unary_unary(
                 '/keyvalue.KeyValueService/Terminate',
@@ -79,7 +79,7 @@ def add_KeyValueServiceServicer_to_server(servicer, server):
             'Activate': grpc.unary_unary_rpc_method_handler(
                     servicer.Activate,
                     request_deserializer=keyvalue__pb2.ServiceRequest.FromString,
-                    response_serializer=keyvalue__pb2.EmptyResponse.SerializeToString,
+                    response_serializer=keyvalue__pb2.ConfirmationResponse.SerializeToString,
             ),
             'Terminate': grpc.unary_unary_rpc_method_handler(
                     servicer.Terminate,
@@ -143,7 +143,7 @@ class KeyValueService(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/keyvalue.KeyValueService/Activate',
             keyvalue__pb2.ServiceRequest.SerializeToString,
-            keyvalue__pb2.EmptyResponse.FromString,
+            keyvalue__pb2.ConfirmationResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

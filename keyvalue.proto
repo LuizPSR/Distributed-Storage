@@ -5,7 +5,7 @@ package keyvalue;
 service KeyValueService {
   rpc Insert (KeyValueRequest) returns (ConfirmationResponse);
   rpc Consult (KeyRequest) returns (ValueResponse);
-  rpc Activate (ServiceRequest) returns (EmptyResponse);
+  rpc Activate (ServiceRequest) returns (ConfirmationResponse);
   rpc Terminate (EmptyRequest) returns (ConfirmationResponse);  
 }
 
@@ -27,9 +27,7 @@ message ValueResponse {
 }
 
 message ServiceRequest {
-  string service = 1;
+  string host = 1;
 }
 
 message EmptyRequest {}
-
-message EmptyResponse {}

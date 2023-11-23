@@ -1,11 +1,11 @@
 import grpc
 import sys
-address
+
 import keyvalue_pb2
 import keyvalue_pb2_grpc
 
-import central_pb2
-import central_pb2_grpc
+import centralstorage_pb2
+import centralstorage_pb2_grpc
 
 def insert_key_value(stub, key, value):
     request = keyvalue_pb2.KeyValueRequest(key=key, value=value)
@@ -30,8 +30,8 @@ def terminate_server(stub):
         print("fail to terminate server")
     exit()
 
-def run(address):
-    with grpc.insecure_channel(address) as channel:
+def run(host):
+    with grpc.insecure_channel(host) as channel:
         stub = keyvalue_pb2_grpc.KeyValueServiceStub(channel)
 
         for line in sys.stdin:
@@ -47,7 +47,7 @@ def run(address):
 
             elif tokens[0] == 'A' and len(tokens) == 2:
                 service = tokens[1]
-                actvate_service(stub, service)
+                activate_service(stub, service)
 
             elif tokens[0] == 'T':
                 terminate_server(stub)
@@ -66,5 +66,5 @@ def run(address):
                 print("\tT\t\t\t=> terminate pair server")
 
 if __name__ == '__main__':
-    address = sys.argv[1]
-    run(address)
+    host = sys.argv[1]
+    run(host)

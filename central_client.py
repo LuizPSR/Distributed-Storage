@@ -1,5 +1,6 @@
 import grpc
 import sys
+import socket
 
 import keyvalue_pb2
 import keyvalue_pb2_grpc
@@ -8,21 +9,21 @@ import centralstorage_pb2
 import centralstorage_pb2_grpc
 
 def map_value(stub, key):
-    request = keyvalue_pb2.HostRequest(key=key)
-    response = stub.Consult(request)
+    request = centralstorage_pb2.KeyRequest(key=key)
+    response = stub.Map(request)
 
     host = response.host 
-    if host == "":
-        print("unregister key")
-
-    else:
-        with grpc.insecure_channel(host) as channel:
+    port = response.port
+    if host != "":
+        with grpc.insecure_channel(host + ':' + port) as channel:
             host_stub = keyvalue_pb2_grpc.KeyValueServiceStub(channel)
             request = keyvalue_pb2.KeyRequest(key=key)
             response = host_stub.Consult(request)
 
             value = response.value
-            print(host, ':', value)
+            print(host+':'+port, ':', value)
+
+    # no print if key is not registered
 
 def terminate_server(stub):
     request = centralstorage_pb2.EmptyRequest()
@@ -40,7 +41,7 @@ def run(address):
             tokens = line.strip().split(',')
             if tokens[0] == 'C' and len(tokens) == 2:
                 key = int(tokens[1])
-                consult_value(stub, key)
+                map_value(stub, key)
 
             elif tokens[0] == 'T':
                 terminate_server(stub)
