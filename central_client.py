@@ -13,15 +13,14 @@ def map_value(stub, key):
     response = stub.Map(request)
 
     host = response.host 
-    port = response.port
     if host != "":
-        with grpc.insecure_channel(host + ':' + port) as channel:
+        with grpc.insecure_channel(host) as channel:
             host_stub = keyvalue_pb2_grpc.KeyValueServiceStub(channel)
             request = keyvalue_pb2.KeyRequest(key=key)
             response = host_stub.Consult(request)
 
             value = response.value
-            print(host+':'+port, ':', value)
+            print(host + ':' + value)
 
     # no print if key is not registered
 
@@ -29,8 +28,7 @@ def terminate_server(stub):
     request = centralstorage_pb2.EmptyRequest()
     response = stub.Terminate(request)
     
-    if response.result != 0:
-        print("fail to terminate central server")
+    print(response.result)
     exit()
 
 def run(address):

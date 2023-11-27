@@ -14,29 +14,19 @@ class CentralStorageServicer(centralstorage_pb2_grpc.CentralStorageServiceServic
 
     def Register(self, request, context):
         host = request.host
-        port = request.port
 
         keys = list(request.keys)
-        count = 0
 
         for k in keys:
-            
-            # if already registered
-            if k in self.key_host_storage.keys():
-                # AND yourself, do not overwrite
-                if self.key_host_storage[k] == [host, port]:
-                    continue
+            # overwrite all entries, inclueding self
+            self.key_host_storage[k] = host
 
-            # otherwise, write
-            self.key_host_storage[k] = [host, port]
-            count = count + 1
-
-        return centralstorage_pb2.ConfirmationResponse(result=count)
+        return centralstorage_pb2.ConfirmationResponse(result=len(keys))
 
     def Map(self, request, context):
         key = request.key
-        [host, port] = self.key_host_storage.get(key, ["", ""])
-        return centralstorage_pb2.HostResponse(host=host, port=port)
+        host = self.key_host_storage.get(key, "")
+        return centralstorage_pb2.HostResponse(host=host)
     
     def Terminate(self, request, context):
         server.stop(0)

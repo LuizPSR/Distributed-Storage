@@ -26,8 +26,7 @@ def terminate_server(stub):
     request = keyvalue_pb2.EmptyRequest()
     response = stub.Terminate(request)
     
-    if response.result != 0:
-        print("fail to terminate server")
+    print(response.result)
     exit()
 
 def run(host):
@@ -35,7 +34,7 @@ def run(host):
         stub = keyvalue_pb2_grpc.KeyValueServiceStub(channel)
 
         for line in sys.stdin:
-            tokens = line.strip().split(',')
+            tokens = line.strip().split(',' , maxsplit=2)
             if tokens[0] == 'I' and len(tokens) == 3:
                 key = int(tokens[1])
                 value = tokens[2]

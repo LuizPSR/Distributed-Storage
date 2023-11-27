@@ -10,8 +10,7 @@ service CentralStorageService {
 
 message RegisterRequest {
   string host = 1;
-  string port = 2;
-  repeated int32 keys = 3;
+  repeated int32 keys = 2;
 }
 
 message ConfirmationResponse {
@@ -24,7 +23,6 @@ message KeyRequest {
 
 message HostResponse {
   string host = 1;
-  string port = 2;
 }
 
 message EmptyRequest {}

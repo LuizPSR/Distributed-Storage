@@ -10,5 +10,9 @@ run_serv_central:
 run_cli_central:
 	python central_client.py $(arg)
 
+protobuffers:
+	python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. keyvalue.proto
+	python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. centralstorage.proto
+
 clean:
 	rm -r __pycache__

@@ -42,9 +42,9 @@ class KeyValueServicer(keyvalue_pb2_grpc.KeyValueServiceServicer):
             with grpc.insecure_channel(host) as channel:
                 central_stub = centralstorage_pb2_grpc.CentralStorageServiceStub(channel)
                 
-                self_host = socket.gethostbyname(socket.getfqdn())
+                self_host = socket.gethostbyname(socket.getfqdn()) + ':' + port
                 self_keys = list(self.key_value_storage.keys())
-                request = centralstorage_pb2.RegisterRequest(host=self_host, port=port, keys=self_keys)
+                request = centralstorage_pb2.RegisterRequest(host=self_host, keys=self_keys)
                 response = central_stub.Register(request)
                 keys = response.result
 
